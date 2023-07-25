@@ -34,7 +34,7 @@ param scmDoBuildDuringDeployment bool = false
 param use32BitWorkerProcess bool = false
 param ftpsState string = 'FtpsOnly'
 param healthCheckPath string = ''
-param enabledIpAddress string = '77.252.46.98'
+// param enabledIpAddress string = '192.168.0.144'
 
 resource appService 'Microsoft.Web/sites@2022-03-01' = {
   name: name
@@ -57,20 +57,20 @@ resource appService 'Microsoft.Web/sites@2022-03-01' = {
       cors: {
         allowedOrigins: union([ 'https://portal.azure.com', 'https://ms.portal.azure.com' ], allowedOrigins)
       }
-      ipSecurityRestrictions: [
-        {
-          ipAddress: '0.0.0.0/0'
-          action: 'Deny'
-          priority: 2147483647
-          name: 'Deny All'
-        }
-        {
-          ipAddress: enabledIpAddress
-          action: 'Allow'
-          priority: 300
-          name: 'ClientIp (${enabledIpAddress})'
-        }
-      ]
+      // ipSecurityRestrictions: [
+      //   {
+      //     ipAddress: '0.0.0.0/0'
+      //     action: 'Deny'
+      //     priority: 2147483647
+      //     name: 'Deny All'
+      //   }
+      //   {
+      //     ipAddress: enabledIpAddress
+      //     action: 'Allow'
+      //     priority: 300
+      //     name: 'ClientIp (${enabledIpAddress})'
+      //   }
+      // ]
     }
     clientAffinityEnabled: clientAffinityEnabled
     httpsOnly: true

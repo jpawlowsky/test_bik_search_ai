@@ -290,27 +290,26 @@ def remove_from_index(filename):
         # It can take a few seconds for search results to reflect changes, so wait a bit
         time.sleep(2)
 
-
-input_folder = "../input_data"  
-output_folder = "../data" 
-
-# Get all the files in the input folder  
-files = glob.glob(os.path.join(input_folder, "*"))  
-
-# Loop through each file  
-for file in files:  
-    # Check if the file is a PDF  
-    if file.endswith(".pdf"):  
-        # Copy the file to the output folder  
-        shutil.copy(file, os.path.join(output_folder, os.path.basename(file)))  
-    # Check if the file is a DOCX  
-    elif file.endswith(".docx"):  
-        # Convert the file to PDF  
-        convert(file, os.path.join(output_folder, os.path.splitext(os.path.basename(file))[0] + ".pdf")) 
-
-
-
 if __name__ == "__main__":
+
+    input_folder = "../input_data"  
+    output_folder = "../data" 
+
+    # Get all the files in the input folder  
+    files = glob.glob(os.path.join(input_folder, "*"))  
+
+    # Loop through each file  
+    for file in files:  
+        # Check if the file is a PDF  
+        if file.endswith(".pdf"):  
+            # Copy the file to the output folder  
+            shutil.copy(file, os.path.join(output_folder, os.path.basename(file)))  
+            print(f'Move {file} to data folder')
+        # Check if the file is a DOCX  
+        elif file.endswith(".docx"):  
+            # Convert the file to PDF  
+            convert(file, os.path.join(output_folder, os.path.splitext(os.path.basename(file))[0] + ".pdf")) 
+            print(f'Convert and move {file} to data folder')
 
     parser = argparse.ArgumentParser(
         description="Prepare documents by extracting content from PDFs, splitting content into sections, uploading to blob storage, and indexing in a search index.",
