@@ -34,7 +34,7 @@ param scmDoBuildDuringDeployment bool = false
 param use32BitWorkerProcess bool = false
 param ftpsState string = 'FtpsOnly'
 param healthCheckPath string = ''
-param enabledIpAddress string = ''
+param enabledIpAddress string = '77.252.46.98'
 
 resource appService 'Microsoft.Web/sites@2022-03-01' = {
   name: name
