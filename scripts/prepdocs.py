@@ -24,6 +24,26 @@ MAX_SECTION_LENGTH = 1000
 SENTENCE_SEARCH_LIMIT = 100
 SECTION_OVERLAP = 100
 
+print('Move files from input_data folder to data folder')
+input_folder = "../input_data"  
+output_folder = "../data" 
+
+# Get all the files in the input folder  
+files = glob.glob(os.path.join(input_folder, "*"))  
+
+# Loop through each file  
+for file in files:  
+    # Check if the file is a PDF  
+    if file.endswith(".pdf"):  
+        # Copy the file to the output folder  
+        shutil.copy(file, os.path.join(output_folder, os.path.basename(file)))  
+        print(f'Move {file} to data folder')
+    # Check if the file is a DOCX  
+    elif file.endswith(".docx"):  
+        # Convert the file to PDF  
+        convert(file, os.path.join(output_folder, os.path.splitext(os.path.basename(file))[0] + ".pdf")) 
+        print(f'Convert and move {file} to data folder')
+
 def blob_name_from_file_page(filename, page = 0):
     if os.path.splitext(filename)[1].lower() == ".pdf":
         return os.path.splitext(os.path.basename(filename))[0] + f"-{page}" + ".pdf"
@@ -291,25 +311,6 @@ def remove_from_index(filename):
         time.sleep(2)
 
 if __name__ == "__main__":
-
-    input_folder = "../input_data"  
-    output_folder = "../data" 
-
-    # Get all the files in the input folder  
-    files = glob.glob(os.path.join(input_folder, "*"))  
-
-    # Loop through each file  
-    for file in files:  
-        # Check if the file is a PDF  
-        if file.endswith(".pdf"):  
-            # Copy the file to the output folder  
-            shutil.copy(file, os.path.join(output_folder, os.path.basename(file)))  
-            print(f'Move {file} to data folder')
-        # Check if the file is a DOCX  
-        elif file.endswith(".docx"):  
-            # Convert the file to PDF  
-            convert(file, os.path.join(output_folder, os.path.splitext(os.path.basename(file))[0] + ".pdf")) 
-            print(f'Convert and move {file} to data folder')
 
     parser = argparse.ArgumentParser(
         description="Prepare documents by extracting content from PDFs, splitting content into sections, uploading to blob storage, and indexing in a search index.",
